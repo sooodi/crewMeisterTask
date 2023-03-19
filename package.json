@@ -60,6 +60,7 @@
     "path": false,
     "os": false
   },
+  "proxy": "http://localhost:8000",
   "devDependencies": {
     "@types/file-saver": "^2.0.5",
     "@types/styled-components": "^5.1.26",

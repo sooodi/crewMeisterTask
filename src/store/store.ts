@@ -1,8 +1,14 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import filterDataSlice from "./filterDataSlice";
+import absenceDataSlice from "./absenceDataSlice";
+import memberDataSlice from "./memberDataSlice";
 
 const store = configureStore({
-  reducer: { filterData: filterDataSlice.reducer },
+  reducer: {
+    filterData: filterDataSlice.reducer,
+    absenceData: absenceDataSlice.reducer,
+    memberData: memberDataSlice.reducer,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,

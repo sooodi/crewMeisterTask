@@ -27,19 +27,6 @@ export const initalState: StateType = {
   },
 };
 
-// const filterDataSlice1 = createSlice({
-//   name: "todo",
-//   initialState: initialTodoState,
-//   reducers: {
-//     setTodos(state, action: PayloadAction<TodoModel[]>) {
-//       state.all_todos = action.payload;
-//     },
-//     setParticularTodo(state, action: PayloadAction<TodoModel>) {
-//       state.particular_todo = action.payload;
-//     },
-//   },
-// });
-
 const filterDataSlice = createSlice({
   name: "filter",
   initialState: initalState,

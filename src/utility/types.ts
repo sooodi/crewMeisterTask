@@ -11,6 +11,36 @@ export type StateType = {
   dateObj: dateObjType;
   filterObj: filterObjType;
 };
+type absenseListType = {
+  _id: string;
+  admitterId: string | null;
+  admitterNote: string;
+  confirmedAt: string | null;
+  createdAt: string;
+  crewId: number;
+  endDate: string;
+  memberNote: string;
+  rejectedAt: string;
+  startDate: string;
+  type: string;
+  userId: number;
+};
+export type memberType = {
+  _id: string;
+  name: string;
+  image: string;
+  crewId: 352;
+  createdAt: string;
+  updatedAt: string;
+  userId: number;
+};
+export type StateAbsenseType = {
+  originList: absenseListType[];
+  currentList: any[];
+};
+export type memberListType = {
+  memberList: memberType[];
+};
 
 export type ActionType = {
   type: string;
