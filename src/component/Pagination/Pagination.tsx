@@ -35,7 +35,7 @@ const Pagination = ({
         </p>
       </div>
       <nav className="block">
-        <ul className="flex pl-0 rounded list-none flex-wrap">
+        <ul className="flex  rounded list-none flex-wrap">
           <li>
             <a
               onClick={() => {
@@ -59,7 +59,7 @@ const Pagination = ({
                 currentPage * postsPerPage >= totalPosts
                   ? "border-gray-300 text-gray-500"
                   : "border-red-300 text-red-500"
-              } mr-2 bg-blue   hover:bg-blue-200 relative inline-flex items-center px-4 py-2 border text-sm font-medium`}
+              } ml-2 bg-blue   hover:bg-blue-200 relative inline-flex items-center px-4 py-2 border text-sm font-medium`}
             >
               Next {">"}
             </a>

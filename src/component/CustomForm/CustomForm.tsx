@@ -1,17 +1,12 @@
 import React, { useState } from "react";
-import CheckboxCustom from "component/CheckBox/CheckboxCustom";
-import { StyledForm, StyledButton } from "./CustomForm.style";
-import { useCustomContext } from "store/CustomContext";
+import { StyledForm } from "./CustomForm.style";
 import { initalState } from "store/dataReducer";
-import {
-  AbsentType,
-  filterObjType,
-  objFilterHasValue,
-  StateType,
-} from "utility/types";
+import { AbsentType, filterObjType, objFilterHasValue } from "utility/types";
 import Datepicker from "react-tailwindcss-datepicker";
 import { doFilter, resetFilter } from "store/filterDataAction";
 import { useAppDispatch } from "hook/ReduxHook";
+import DropDownCustom from "component/DropDownCustom/DropDownCustom";
+import RowCheckboxs from "component/RowCheckboxs/RowCheckboxs";
 
 type Props = {};
 
@@ -29,49 +24,13 @@ const CustomForm = ({}: Props) => {
     Type: AbsentType.All,
     startDate: "",
   });
-  //const { state, dispatch } = useCustomContext();
+
   const dispatch = useAppDispatch();
 
   const handleValueChange = (newValue: any) => {
     setValueDate(newValue);
   };
 
-  const FilterByComponent = () => {
-    return (
-      <ul className="items-center w-full text-sm font-medium  bg-white border border-1 border-gray-200 rounded-lg sm:flex  dark:border-gray-200 ">
-        {hasValueFilter.map((e) => {
-          return (
-            <li className="w-full  ">
-              <div className="flex justify-start pl-3 pt-2">
-                <input
-                  id="vue-checkbox-list"
-                  type="checkbox"
-                  value=""
-                  defaultChecked={e.selected}
-                  onClick={() => {
-                    setHasValueFilter(
-                      hasValueFilter.map((c) => {
-                        return c.title !== e.title
-                          ? c
-                          : { title: e.title, selected: !c.selected };
-                      })
-                    );
-                  }}
-                  className="w-4 h-4 mt-1  rounded focus:ring-blue-500 dark:focus:ring-blue-600  dark:focus:ring-offset-gray-700 focus:ring-2 "
-                />
-                <label
-                  htmlFor="vue-checkbox-list"
-                  className="w-full  ml-2 text-sm font-medium text-black-100 dark:text-black-100"
-                >
-                  {e.title}
-                </label>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
-    );
-  };
   const UpdateValue = (key: any, value: any) => {
     setValueFilter({ ...valueFilter, [key]: value });
   };
@@ -87,24 +46,29 @@ const CustomForm = ({}: Props) => {
   ): string {
     throw new Error("Function not implemented.");
   }
-
+  const handleFilter = () => {
+    dispatch(
+      doFilter({
+        noteValues: hasValueFilter,
+        dateObj: valueDate,
+        filterObj: valueFilter,
+      })
+    );
+  };
+  const handleResetFilter = () => {
+    setValueFilter(initalState.filterObj);
+    dispatch(resetFilter());
+  };
   return (
     <StyledForm>
       <form>
         <div className="grid grid-cols-4 gap-4">
           <div className="col-start-1 col-span-1 text-left">
-            <label className="text-green-700 mb-2">Type:</label>
-            <CheckboxCustom
-              selectedType={valueFilter.Type}
-              setTypeEvent={(value: AbsentType) => UpdateValue("Type", value)}
-            />
-          </div>
-          <div className="col-start-2 col-span-1 text-left">
-            <label className="text-green-700 mb-2">Member Name:</label>
+            <label className="text-green-700 ">Member Name:</label>
             <input
               type="text"
               id="floating_filled"
-              className="block w-full p-4 text-black-100 border border-gray-200  dark:border-white-100   sm:text-md focus:ring-blue-100 focus:border-blue-100   "
+              className=" w-full text-black-100 border border-gray-100  dark:border-gray-100   sm:text-md focus:ring-blue-100 focus:border-blue-100   "
               placeholder="Name"
               value={valueFilter.Name}
               onChange={(event: any) =>
@@ -112,9 +76,21 @@ const CustomForm = ({}: Props) => {
               }
             />
           </div>
+          <div className="col-start-2 col-span-1 text-left">
+            <label className="text-green-700 mb-2">Type:</label>
+            <DropDownCustom
+              selectedType={valueFilter.Type}
+              setTypeEvent={(value: AbsentType) => UpdateValue("Type", value)}
+            />
+          </div>
+
           <div className=" col-start-3 col-span-2 text-left">
-            <label className="text-green-700 mb-2"> Coulmn has value:</label>
-            <FilterByComponent />
+            <RowCheckboxs
+              setFiltersValueEvent={(type: objFilterHasValue[]) =>
+                setHasValueFilter(type)
+              }
+              valueFilters={hasValueFilter}
+            />
           </div>
           <div className="col-start-1 col-span-2 text-left">
             <Datepicker
@@ -124,7 +100,7 @@ const CustomForm = ({}: Props) => {
               inputClassName={(className) =>
                 twMerge(className, "bg-white dark:bg-gray")
               }
-              primaryColor={"fuchsia"}
+              primaryColor={"sky"}
               showShortcuts
               value={valueDate}
               onChange={handleValueChange}
@@ -132,40 +108,15 @@ const CustomForm = ({}: Props) => {
           </div>
           <button
             type="button"
-            onClick={() => {
-              setValueFilter(initalState.filterObj);
-              dispatch(resetFilter());
-              // dispatch({
-              //   type: "RESET_FILTER",
-              //   payload: {},
-              // });
-            }}
-            className=" col-start-3 h-10 bg-white  px-3 border border-red-300 rounded-md shadow-sm text-sm leading-4  text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            onClick={handleResetFilter}
+            className="col-start-3 h-10 bg-white  px-3 border border-red-300 rounded-md shadow-sm text-sm leading-4  text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             Reset Filter
           </button>
           <button
             type="button"
-            onClick={
-              () => {
-                dispatch(
-                  doFilter({
-                    noteValues: hasValueFilter,
-                    dateObj: valueDate,
-                    filterObj: valueFilter,
-                  })
-                );
-              }
-              // dispatch({
-              //   type: "OBJ_FILTER",
-              //   payload: {
-              //     noteValues: hasValueFilter,
-              //     dateObj: valueDate,
-              //     filterObj: valueFilter,
-              //   },
-              // })
-            }
-            className=" col-start-4  h-10 bg-white  px-3 border border-blue-300 rounded-md shadow-sm text-sm leading-4  text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            onClick={handleFilter}
+            className="col-start-4  h-10 bg-white  px-3 border border-blue-300 rounded-md shadow-sm text-sm leading-4  text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             Filter
           </button>

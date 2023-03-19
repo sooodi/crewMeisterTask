@@ -43,12 +43,12 @@ const CheckboxCustom = ({ setTypeEvent, selectedType }: Props) => {
   //     });
 
   return (
-    <div className="relative group h-10 w-full rounded-lg">
+    <div className="relative group  w-full  ">
       <button
         id="dropdownHoverButton"
         data-dropdown-toggle="dropdownHover"
         data-dropdown-trigger="hover"
-        className="flex items-center w-full whitespace-nowrap rounded-lg rounded h-10   text-xs font-medium uppercase border-1 leading-normal text-black  transition duration-150 ease-in-out    border    motion-reduce:transition-none "
+        className="flex items-center w-full whitespace-nowrap  rounded h-12  text-xs font-medium uppercase  leading-normal text-black  transition duration-150 ease-in-out border  motion-reduce:transition-none "
         type="button"
         // value={}
         onClick={() => handleOpen()}
