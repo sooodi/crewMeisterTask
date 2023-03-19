@@ -11,7 +11,7 @@ export type StateType = {
   dateObj: dateObjType;
   filterObj: filterObjType;
 };
-type absenseListType = {
+export type absenseListType = {
   _id: string;
   admitterId: string | null;
   admitterNote: string;
@@ -35,7 +35,7 @@ export type memberType = {
   userId: number;
 };
 export type StateAbsenseType = {
-  originList: absenseListType[];
+  originList: any[];
   currentList: any[];
 };
 export type memberListType = {

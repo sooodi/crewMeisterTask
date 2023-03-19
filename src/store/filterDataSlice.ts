@@ -1,4 +1,3 @@
-import { TodoModel, TodoArrayModel, FilterModel } from "../models/redux-models";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AbsentType, StateType } from "utility/types";
 

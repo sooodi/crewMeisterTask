@@ -48,7 +48,7 @@ const CheckboxCustom = ({ setTypeEvent, selectedType }: Props) => {
         id="dropdownHoverButton"
         data-dropdown-toggle="dropdownHover"
         data-dropdown-trigger="hover"
-        className="flex items-center w-full whitespace-nowrap rounded-lg rounded h-10   text-xs font-medium uppercase leading-normal text-black shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] motion-reduce:transition-none "
+        className="flex items-center w-full whitespace-nowrap rounded-lg rounded h-10   text-xs font-medium uppercase border-1 leading-normal text-black  transition duration-150 ease-in-out    border    motion-reduce:transition-none "
         type="button"
         // value={}
         onClick={() => handleOpen()}
@@ -87,6 +87,15 @@ const CheckboxCustom = ({ setTypeEvent, selectedType }: Props) => {
           className="py-2 text-sm text-gray-700 dark:text-gray-700"
           aria-labelledby="dropdownHoverButton"
         >
+          <li>
+            <a
+              onClick={() => handleSelect(AbsentType.All)}
+              href="#"
+              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+            >
+              {AbsentType.All}
+            </a>
+          </li>
           <li>
             <a
               onClick={() => handleSelect(AbsentType.Sickness)}

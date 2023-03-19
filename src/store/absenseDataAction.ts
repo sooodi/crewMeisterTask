@@ -6,25 +6,13 @@ import { StateAbsenseType } from "utility/types";
 
 export const absensActions = absenceDataSlice.actions;
 
-export const setOriginList = (
+export const setOriginAndCurrentList = (
   payLoad: StateAbsenseType
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch, getState) => {
     console.log("payLoad", payLoad);
     // if (getState().absenceData) {
-    dispatch(absensActions.setOriginList(payLoad));
+    dispatch(absensActions.setOriginAndCurrentList(payLoad));
     // }
-  };
-};
-export const setCurrentList = (): ThunkAction<
-  void,
-  RootState,
-  unknown,
-  AnyAction
-> => {
-  return async (dispatch, getState) => {
-    if (getState().absenceData) {
-      dispatch(absensActions.setCurrentList());
-    }
   };
 };

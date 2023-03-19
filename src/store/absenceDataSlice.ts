@@ -1,4 +1,3 @@
-import { TodoModel, TodoArrayModel, FilterModel } from "../models/redux-models";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AbsentType, StateAbsenseType, StateType } from "utility/types";
 
@@ -20,11 +19,8 @@ const absenceDataSlice = createSlice({
   name: "absenceData",
   initialState: initalState,
   reducers: {
-    setOriginList(state, action: PayloadAction<StateAbsenseType>) {
+    setOriginAndCurrentList(state, action: PayloadAction<StateAbsenseType>) {
       return (state = action.payload);
-    },
-    setCurrentList(state, action: PayloadAction) {
-      state = initalState;
     },
   },
 });

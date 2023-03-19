@@ -1,4 +1,3 @@
-import { TodoModel, TodoArrayModel, FilterModel } from "../models/redux-models";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   AbsentType,
@@ -7,15 +6,6 @@ import {
   StateType,
 } from "utility/types";
 
-// const initialTodoState: TodoArrayModel = {
-//   all_todos: [],
-//   particular_todo: {
-//     userId: 0,
-//     id: 0,
-//     title: "",
-//     completed: false,
-//   },
-// };
 export const initalState: memberListType = {
   memberList: [],
 };

@@ -1,4 +1,4 @@
-import { AbsentType, StateType } from "./types";
+import { absenseListType, AbsentType, memberType, StateType } from "./types";
 
 export const AbsentDuration = (obj: any) => {
   var start = new Date(obj?.startDate).getTime();
@@ -50,4 +50,28 @@ export const filterDataAbsence = (arr: any, stateFilter: StateType) => {
         return e.endDate <= stateFilter.dateObj.endDate;
     });
   return dataArr;
+};
+export const HandleTableData = (
+  absenceArray: absenseListType[],
+  memberArray: memberType[]
+) => {
+  let arrWithUseName: any = [];
+
+  const result = absenceArray.map((el, index) => {
+    let som = memberArray.filter((e) => e.userId === el.userId);
+    let status = "Requested";
+    if (el.confirmedAt !== null) status = "Confirmed";
+    if (el?.rejectedAt !== null) status = "Rejected";
+
+    if (som.length > 0) {
+      arrWithUseName.push({
+        ...el,
+        name: som[0]?.name,
+        image: som[0].image,
+        status: status,
+        duration: AbsentDuration(el),
+      });
+    }
+  });
+  return arrWithUseName;
 };

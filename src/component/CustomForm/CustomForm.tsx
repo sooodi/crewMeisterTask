@@ -38,10 +38,10 @@ const CustomForm = ({}: Props) => {
 
   const FilterByComponent = () => {
     return (
-      <ul className="items-center w-full text-sm font-medium  bg-white border border-gray-100 rounded-lg sm:flex  dark:border-gray-100 ">
+      <ul className="items-center w-full text-sm font-medium  bg-white border border-1 border-gray-200 rounded-lg sm:flex  dark:border-gray-200 ">
         {hasValueFilter.map((e) => {
           return (
-            <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-100">
+            <li className="w-full  ">
               <div className="flex justify-start pl-3 pt-2">
                 <input
                   id="vue-checkbox-list"
@@ -57,7 +57,7 @@ const CustomForm = ({}: Props) => {
                       })
                     );
                   }}
-                  className="w-4 h-4 mt-1  bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                  className="w-4 h-4 mt-1  rounded focus:ring-blue-500 dark:focus:ring-blue-600  dark:focus:ring-offset-gray-700 focus:ring-2 "
                 />
                 <label
                   htmlFor="vue-checkbox-list"
@@ -93,18 +93,18 @@ const CustomForm = ({}: Props) => {
       <form>
         <div className="grid grid-cols-4 gap-4">
           <div className="col-start-1 col-span-1 text-left">
-            <span className="text-green-700 ">Type:</span>
+            <label className="text-green-700 mb-2">Type:</label>
             <CheckboxCustom
               selectedType={valueFilter.Type}
               setTypeEvent={(value: AbsentType) => UpdateValue("Type", value)}
             />
           </div>
-          <div className="col-start-2 col-span-1   text-left">
-            <span className="text-green-700">Member Name:</span>
+          <div className="col-start-2 col-span-1 text-left">
+            <label className="text-green-700 mb-2">Member Name:</label>
             <input
               type="text"
               id="floating_filled"
-              className="block w-full p-4 text-black-100 border-1 border-gray-200 rounded-lg  sm:text-md focus:ring-blue-100 focus:border-blue-100   "
+              className="block w-full p-4 text-black-100 border border-gray-200  dark:border-white-100   sm:text-md focus:ring-blue-100 focus:border-blue-100   "
               placeholder="Name"
               value={valueFilter.Name}
               onChange={(event: any) =>
@@ -113,7 +113,7 @@ const CustomForm = ({}: Props) => {
             />
           </div>
           <div className=" col-start-3 col-span-2 text-left">
-            <span className="text-green-700"> Coulmn has value:</span>
+            <label className="text-green-700 mb-2"> Coulmn has value:</label>
             <FilterByComponent />
           </div>
           <div className="col-start-1 col-span-2 text-left">
