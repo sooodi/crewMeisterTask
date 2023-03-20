@@ -12,7 +12,7 @@ const TableHead = () => {
         </th>
         <th
           scope="col"
-          className="px-4 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+          className="px-2 py-3 text-xs font-bold text-left text-gray-500 uppercase "
         >
           Image
         </th>
@@ -24,13 +24,13 @@ const TableHead = () => {
         </th>
         <th
           scope="col"
-          className="px-4 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+          className="px-2 py-3 text-xs font-bold text-left text-gray-500 uppercase "
         >
           Start Date
         </th>
         <th
           scope="col"
-          className="px-4 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+          className="px-2 py-3 text-xs font-bold text-left text-gray-500 uppercase "
         >
           Period(days)
         </th>
@@ -42,21 +42,27 @@ const TableHead = () => {
         </th>
         <th
           scope="col"
-          className="px-4 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+          className="px-2 py-3 text-xs font-bold text-left text-gray-500 uppercase "
         >
           Type
         </th>
         <th
           scope="col"
-          className="px-4 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+          className="px-2 py-3 text-xs font-bold text-left text-gray-500 uppercase "
         >
           Member Note
         </th>
         <th
           scope="col"
-          className="px-4 py-3 text-xs font-bold text-left text-gray-500 uppercase"
+          className="px-2 py-3 text-xs font-bold text-left text-gray-500 uppercase"
         >
           Admitter Note
+        </th>
+        <th
+          scope="col"
+          className="px-2 py-3 text-xs font-bold text-left text-gray-500 uppercase"
+        >
+          get ICS
         </th>
       </tr>
     </thead>

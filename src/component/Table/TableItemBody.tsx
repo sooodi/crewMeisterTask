@@ -1,8 +1,49 @@
+import FileSaver from "file-saver";
 import React from "react";
 import { truncate } from "utility/Functions";
 import { ItemProps } from "utility/types";
+const ics = require("ics");
 
 const TableItemBody = ({ item, index }: ItemProps) => {
+  const handleEvent = () => {
+    console.log("handleEvent", item.startDate, item.startDate.split("-"));
+    const event = {
+      start: `${item.startDate.split("-")}`,
+      duration: { days: item.duration },
+      title: ` Absence Event : user ${item.name}`,
+      description: `startDate:${item.startDate} endDate:${item.endDate}  type of Absence:${item.type} admitterNote: ${item.admitterNote} memberNote: ${item.memberNote} `,
+      url: "http://www.crewmeister.com/",
+      status: item.status,
+      organizer: item.name,
+      attendees: [
+        {
+          name: "User B",
+          email: "userB@example.org",
+          rsvp: true,
+          role: "Staff",
+        },
+        {
+          name: "Mr/Ms Boss",
+          email: "manager@example.org",
+          dir: "https://linkedin.com",
+          role: "manager",
+        },
+      ],
+    };
+    console.log("handvent", event);
+    ics.createEvent(event, (error: any, value: any) => {
+      if (error) {
+        console.log("error", error);
+        return;
+      }
+
+      console.log("value", value);
+
+      var file = new File([value], `${__dirname}/event.ics`);
+
+      FileSaver.saveAs(file);
+    });
+  };
   return (
     <tr key={index}>
       <th className="px-4 py-4 text-sm text-left font-medium text-gray-800 whitespace-nowrap">
@@ -38,6 +79,18 @@ const TableItemBody = ({ item, index }: ItemProps) => {
           </span>
         </a>
       </td>
+      <button
+        onClick={handleEvent}
+        className="h-6 mt-5 bg-red-200 hover:bg-red-300 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
+      >
+        <svg
+          className="fill-current w-4 h-4 "
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+        >
+          <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z " />
+        </svg>
+      </button>
     </tr>
   );
 };

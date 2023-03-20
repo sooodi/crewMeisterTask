@@ -1,18 +1,18 @@
-This project was bootstrapped with create-react-app.
-
+This project was created with create-react-app.
+for security, I will send my .env file by email
 front_url:http://localhost:3000
 Apis:http://localhost:3000
 
-Path of apis --> "apicrewmeister" : for run this one please type:
+Path of apis --> "apicrewmeister" :for running please type:
 cd apicrewmeister then run "npm run start"
 
 Path of Front --> main root "taskcrewmeister" then run "npm run start"
 
-I have created two branchs ,one of them without api but another one with api.
+I have created two branches, one without API and another with API.
 
 On "main" branch : I used members.json & absenses.json file .
 
-On "front_api" branch :I created Apis with mongodb & node js "path:apicrewmeister", we have for apis for members & absences and fill them with same as sample data from json file ,except createAt & id to tables:
+On "front_api" branch : I created Apis with MongoDB & node js "path:apicrewmeister", we have APIs for members & absences and fill them with the same as sample data from the JSON file, except create & id to tables:
 
 Backend Api:
 \*\*\* paginagtion is included
@@ -28,7 +28,7 @@ Backend Api:
 }
 --> get : localhost:8000/api/absences?limit=5&page=2&userId=2664&type=vacation&startDate=2021-06-30&endDate=2021-07-30
 
---> post :localhost:8000/api/absences ,id was autocreated by mongodb ex: body:{
+--> post :localhost:8000/api/absences ,id was auto-created by MongoDB ex: body:{
 { "admitterId": null,
 "admitterNote": "",
 "confirmedAt": null,
@@ -49,9 +49,11 @@ front App has features below:
 
 \_Mostly Tailwindcss ,some Styled component
 \_typescript
-\_redux & redux toolkit
+context & usereducer(only on main branch which read json files )
+\_redux & redux toolkit(only on front-api branch which one that I wrote apis for)
 \_axios for fetch data
-\_two hook ,for fetch datas
+\_two hooks,for fetching data
 \_filter with the query :Type & Name of user & date between startDate & endDate.
-\_clean code & seprated every components
+\_clean code & separated every components
 \_create ics file for every row
+Loading & error page
