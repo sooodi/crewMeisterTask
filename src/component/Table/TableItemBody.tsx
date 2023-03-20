@@ -23,10 +23,10 @@ const TableItemBody = ({ item, index }: ItemProps) => {
       <td className="px-4  py-4 text-left text-sm text-gray-800 whitespace-nowrap">
         {item.status}
       </td>
-      <td className="px-4  py-4 text-left text-sm text-gray-800 whitespace-nowrap">
+      <td className="px-4 py-4 text-left text-sm text-gray-800 whitespace-nowrap">
         {item.type}
       </td>
-      <td className="px-4  py-4 text-left text-sm text-gray-800 whitespace-nowrap">
+      <td className="px-4 py-4 text-left text-sm text-gray-800 whitespace-nowrap">
         <a href="#" data-te-toggle="tooltip" title={item.memberNote}>
           <span>{truncate(item.memberNote, 30, item.memberNote.length)}</span>
         </a>

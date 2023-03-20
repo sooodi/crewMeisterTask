@@ -9,9 +9,9 @@ const RowCheckboxs = ({ setFiltersValueEvent, valueFilters }: Props) => {
     <>
       <label className="text-green-700 "> Coulmn has value:</label>
       <ul className="items-center w-full text-sm font-medium  bg-white border border-1 border-gray-200  sm:flex  dark:border-gray-200 ">
-        {valueFilters.map((e) => {
+        {valueFilters.map((e, index) => {
           return (
-            <li className="w-full  ">
+            <li key={index} className="w-full">
               <div className="flex justify-start pl-3 pt-2">
                 <input
                   id="vue-checkbox-list"

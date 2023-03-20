@@ -10,7 +10,6 @@ export const setOriginAndCurrentList = (
   payLoad: StateAbsenseType
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch, getState) => {
-    console.log("payLoad", payLoad);
     // if (getState().absenceData) {
     dispatch(absensActions.setOriginAndCurrentList(payLoad));
     // }

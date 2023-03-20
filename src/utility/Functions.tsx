@@ -75,3 +75,40 @@ export const HandleTableData = (
   });
   return arrWithUseName;
 };
+
+export const HandleFilterObject = (
+  stateFilter: StateType,
+  memberList: memberType[]
+) => {
+  let urlQuery = ``;
+  if (stateFilter.filterObj.Type !== "All")
+    urlQuery += `&type=${stateFilter.filterObj.Type.toLocaleLowerCase()}`;
+  if (stateFilter.dateObj.startDate !== null)
+    urlQuery += `&startDate=${stateFilter.dateObj.startDate}`;
+  if (stateFilter.dateObj.endDate !== null)
+    urlQuery += `&endDate=${stateFilter.dateObj.endDate}`;
+  if (stateFilter.filterObj.Name !== "") {
+    let userId = memberList.find(
+      (e) => e.name === stateFilter.filterObj.Name
+    )?.userId;
+
+    urlQuery += `&userId=${userId}`;
+  }
+  return urlQuery;
+};
+
+export function twMerge(
+  className:
+    | string
+    | number
+    | boolean
+    | import("react-tailwindcss-datepicker/dist/types").ClassNameParam[]
+    | undefined,
+  arg1: string
+): string {
+  throw new Error("Function not implemented.");
+}
+
+export function classNames(...classes: (string | boolean)[]) {
+  return classes.filter(Boolean).join(" ");
+}

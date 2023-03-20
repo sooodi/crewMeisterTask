@@ -11,7 +11,7 @@ const TableComponent = ({ data }: TableProps) => {
       <TableHead />
       <tbody className="divide-y divide-gray-200">
         {data.map((e: any, index: number) => {
-          return <TableItemBody item={e} index={index} />;
+          return <TableItemBody item={e} key={index} index={index} />;
         })}
       </tbody>
     </table>

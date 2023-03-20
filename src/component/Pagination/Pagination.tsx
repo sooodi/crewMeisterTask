@@ -18,6 +18,7 @@ const Pagination = ({
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
     pageNumbers.push(i);
   }
+
   return (
     <div className="py-2 px-5 flex justify-end items-center">
       <div>
@@ -25,7 +26,7 @@ const Pagination = ({
           Showing
           <span className="font-medium">
             {" "}
-            {currentPage * postsPerPage - 10}{" "}
+            {currentPage * postsPerPage - 10 + 1}{" "}
           </span>
           to
           <span className="font-medium"> {currentPage * postsPerPage} </span>
@@ -46,7 +47,7 @@ const Pagination = ({
                 currentPage === 1
                   ? "border-gray-300 text-gray-500"
                   : "border-red-300 text-red-500"
-              } mr-2 bg-blue  hover:bg-blue-200 relative inline-flex items-center px-4 py-2 border round text-sm font-medium`}
+              } mr-2 bg-blue rounded-md hover:bg-blue-200 relative inline-flex items-center px-4 py-2 border round text-sm font-medium`}
             >
               {"<"} Prev
             </a>
@@ -59,7 +60,7 @@ const Pagination = ({
                 currentPage * postsPerPage >= totalPosts
                   ? "border-gray-300 text-gray-500"
                   : "border-red-300 text-red-500"
-              } ml-2 bg-blue   hover:bg-blue-200 relative inline-flex items-center px-4 py-2 border text-sm font-medium`}
+              } ml-2 bg-blue  rounded-md hover:bg-blue-200 relative inline-flex items-center px-4 py-2 border text-sm font-medium`}
             >
               Next {">"}
             </a>

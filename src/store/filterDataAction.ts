@@ -11,21 +11,8 @@ export const doFilter = (
   payLoad: StateType
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch, getState) => {
-    console.log("payLoad", payLoad);
     // if (getState().filterData) {
     dispatch(filterActions.setFilter(payLoad));
     // }
-  };
-};
-export const resetFilter = (): ThunkAction<
-  void,
-  RootState,
-  unknown,
-  AnyAction
-> => {
-  return async (dispatch, getState) => {
-    if (getState().filterData) {
-      dispatch(filterActions.resetFilter());
-    }
   };
 };

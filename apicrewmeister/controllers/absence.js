@@ -31,23 +31,23 @@ export const createAbsence = async (req, res, next) => {
 
 export const getAbsences = async (req, res, next) => {
   const limitValue = req.query.limit || 10;
-  const skipValue = req.query.page || 0;
+  const skipValue = req.query.page || 1;
 
   try {
-    let total = await Absence.count();
     let query = {};
     let _get = req.query;
-    _get.type ? (query.type = _get.type) : "";
     _get.userId ? (query.userId = _get.userId) : "";
+    _get.type ? (query.type = _get.type) : "";
     _get.startDate ? (query.startDate = { $gte: _get.startDate }) : "";
     _get.endDate ? (query.endDate = { $lt: _get.endDate }) : "";
+    let total = await Absence.count(query).exec();
     const absences = await Absence.find(query)
       .limit(limitValue)
       .skip(limitValue * skipValue - limitValue);
 
     res
       .status(200)
-      .json({ status: "success", totlal: absences.length, absences: absences });
+      .json({ status: "success", totlal: total, absences: absences });
   } catch (err) {
     next(err);
   }

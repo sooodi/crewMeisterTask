@@ -1,7 +1,3 @@
-import axios from "axios";
-
-export default () => {
-  return axios.create({
-    baseURL: "https://jsonplaceholder.typicode.com/",
-  });
-};
+export const BASE_URL = `/api`;
+export const ABSENCE_ENDPOINT = `/absences`;
+export const MEMBER_ENDPOINT = `/members`;

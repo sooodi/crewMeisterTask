@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 
 import Pagination from "component/Pagination/Pagination";
-// import { useCustomContext } from "store/CustomContext";
 import EmptyPage from "component/EmptyPage/EmptyPage";
 
 import {
-  AbsentDuration,
   calculateTotalAbsence,
-  filterDataAbsence,
+  HandleFilterObject,
   HandleTableData,
   SortByName,
 } from "utility/Functions";
@@ -19,52 +17,23 @@ import useMember from "hook/useMembers";
 import { setMemberList } from "store/memberDataAction";
 import { setOriginAndCurrentList } from "store/absenseDataAction";
 import { SpinnerCustom } from "component/SpinnerCustom/SpinnerCustom";
+import { actionRequestGet } from "Service/actionRequest";
+import { ABSENCE_ENDPOINT, MEMBER_ENDPOINT } from "Service/Api";
+import ErrorPage from "component/ErrorPage/ErrorPage";
 
 type Props = {};
 
 const TableCustom = ({}: Props) => {
   const [currentPage, setCurrentPage] = useState(1);
-  //const [currentList, setCurrentList] = useState([]);
-  //const [originList, setOriginList] = useState([]);
-  const [filteredList, setFiltredList] = useState<any>([]);
+  const [queryFilter, setQueryFilter] = useState("");
   const [totalUsersAbsent, setTotalUsersAbsent] = useState(0);
   const [itemsPerPage] = useState(10);
   const [totalItems, setTotalItems] = useState(0);
-  // const { state } = useCustomContext();
-
-  let indexOfLastItem = currentPage * itemsPerPage;
-  let indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
   const stateFilter = useAppSelector((state: any) => state.filterData);
   const stateMember = useAppSelector((state: any) => state.memberData);
   const stateAbsense = useAppSelector((state: any) => state.absenceData);
-  console.log("stateAbsense", stateAbsense, stateMember);
   const dispatch = useAppDispatch();
-  // Change page
-  const paginateForward = () => {
-    if (currentPage * itemsPerPage <= totalItems)
-      setCurrentPage(currentPage + 1);
-  };
-  const paginateBack = () => {
-    if (currentPage - 1 >= 1) setCurrentPage(currentPage - 1);
-  };
-  useEffect(() => {
-    FilterData();
-  }, [stateFilter]);
-
-  const FilterData = () => {
-    let resultArray = filterDataAbsence(stateAbsense.originList, stateFilter);
-    let sortByname = SortByName(resultArray);
-    setFiltredList(sortByname);
-    //setCurrentList(sortByname.slice(0, itemsPerPage));
-    TotalAbsent(sortByname);
-    setTotalItems(sortByname.length);
-    setCurrentPage(1);
-  };
-
-  const TotalAbsent = (arr: any) => {
-    setTotalUsersAbsent(calculateTotalAbsence(arr));
-  };
 
   const {
     loading: loadingMember,
@@ -72,64 +41,72 @@ const TableCustom = ({}: Props) => {
     sendRequest: fetchMemberDatas,
   } = useMember();
   const { loading, error, sendRequest: fetchDatas } = useAbsentMember();
+  let indexOfLastItem = currentPage * itemsPerPage;
+  let indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  const paginateForward = () => {
+    if (currentPage * itemsPerPage <= totalItems)
+      setCurrentPage(currentPage + 1);
+  };
+
+  const paginateBack = () => {
+    if (currentPage - 1 >= 1) setCurrentPage(currentPage - 1);
+  };
+
+  useEffect(() => {
+    setCurrentPage(1);
+    setQueryFilter(HandleFilterObject(stateFilter, stateMember.memberList));
+  }, [stateFilter]);
+
   useEffect(() => {
     const HandleMemberData = (dataObj: any) => {
-      const loadedTasks = [];
-
       dispatch(setMemberList({ memberList: dataObj?.members }));
     };
-
-    fetchMemberDatas(
-      {
-        method: "GET",
-        url: `/members`,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        },
-      },
-      HandleMemberData
-    );
+    fetchMemberDatas(actionRequestGet(MEMBER_ENDPOINT), HandleMemberData);
   }, [fetchMemberDatas]);
 
   useEffect(() => {
-    const HandleData = (dataObj: any) => {
-      if (dataObj?.absences) {
-        let arrWithUseName = HandleTableData(
-          dataObj.absences,
-          stateMember.memberList
-        );
-        console.log("HandleData", currentPage);
-        if (currentPage > 1)
-          arrWithUseName = [...stateAbsense.originList, ...arrWithUseName];
-        console.log("HandleData", arrWithUseName);
-        let sortByname: any[] = SortByName(arrWithUseName);
-        TotalAbsent(arrWithUseName);
-        setFiltredList(sortByname);
-        dispatch(
-          setOriginAndCurrentList({
-            originList: sortByname,
-            currentList: sortByname.slice(indexOfFirstItem, indexOfLastItem),
-          })
-        );
-        setTotalItems(dataObj.totlal);
-      }
-    };
-    if (stateMember)
+    const HandleData = (dataObj: any) => HandleListData(dataObj);
+
+    if (stateMember) {
       fetchDatas(
-        {
-          method: "GET",
-          url: `/absences?limit=10&page=${currentPage}`,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json",
-          },
-        },
+        actionRequestGet(
+          `${ABSENCE_ENDPOINT}?limit=${itemsPerPage}&page=${currentPage}${queryFilter}`
+        ),
         HandleData
       );
-  }, [fetchDatas, stateMember, currentPage]);
+    }
+  }, [fetchDatas, stateMember, currentPage, queryFilter]);
 
-  if (stateAbsense.currentList.length <= 0) return <EmptyPage />;
+  const TotalAbsent = (arr: any) => {
+    setTotalUsersAbsent(calculateTotalAbsence(arr));
+  };
+
+  const HandleListData = (dataObj: any) => {
+    if (dataObj?.absences) {
+      let arrWithUseName = HandleTableData(
+        dataObj.absences,
+        stateMember.memberList
+      );
+
+      if (currentPage > 1)
+        arrWithUseName = [...stateAbsense.originList, ...arrWithUseName];
+      let sortByname: any[] = SortByName(arrWithUseName);
+      TotalAbsent(arrWithUseName);
+      dispatch(
+        setOriginAndCurrentList({
+          originList: sortByname,
+          currentList: sortByname.slice(indexOfFirstItem, indexOfLastItem),
+        })
+      );
+      setTotalItems(dataObj.totlal);
+    }
+  };
+
+  if (!loading && !loadingMember && stateAbsense.currentList.length <= 0)
+    return <EmptyPage />;
+  if (!loading && !loadingMember && (errorMember || error))
+    return <ErrorPage />;
 
   return (
     <div className="container mx-auto pt-2 s">

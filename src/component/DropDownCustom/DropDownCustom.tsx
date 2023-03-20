@@ -1,25 +1,6 @@
-/*
-  This example requires Tailwind CSS v2.0+ 
-  
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
 import React, { useState } from "react";
 import { AbsentType } from "utility/types";
 
-function classNames(...classes: (string | boolean)[]) {
-  return classes.filter(Boolean).join(" ");
-}
 type Props = {
   setTypeEvent: (type: AbsentType) => void;
   selectedType: AbsentType;
@@ -36,12 +17,6 @@ const CheckboxCustom = ({ setTypeEvent, selectedType }: Props) => {
     setOpen(false);
   };
 
-  // query === ""
-  //   ? people
-  //   : people.filter((person) => {
-  //       return person.name.toLowerCase().includes(query.toLowerCase());
-  //     });
-
   return (
     <div className="relative group  w-full  ">
       <button
@@ -50,7 +25,6 @@ const CheckboxCustom = ({ setTypeEvent, selectedType }: Props) => {
         data-dropdown-trigger="hover"
         className="flex items-center w-full whitespace-nowrap  rounded h-12  text-xs font-medium uppercase  leading-normal text-black  transition duration-150 ease-in-out border  motion-reduce:transition-none "
         type="button"
-        // value={}
         onClick={() => handleOpen()}
       >
         <div className="grid grid-cols-7 w-full  ">
@@ -67,9 +41,9 @@ const CheckboxCustom = ({ setTypeEvent, selectedType }: Props) => {
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M19 9l-7 7-7-7"
               ></path>
             </svg>

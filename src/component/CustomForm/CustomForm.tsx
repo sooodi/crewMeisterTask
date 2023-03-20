@@ -1,13 +1,22 @@
 import React, { useState } from "react";
-import { StyledForm } from "./CustomForm.style";
-import { initalState } from "store/dataReducer";
-import { AbsentType, filterObjType, objFilterHasValue } from "utility/types";
 import Datepicker from "react-tailwindcss-datepicker";
-import { doFilter, resetFilter } from "store/filterDataAction";
+
 import { useAppDispatch } from "hook/ReduxHook";
 import DropDownCustom from "component/DropDownCustom/DropDownCustom";
 import RowCheckboxs from "component/RowCheckboxs/RowCheckboxs";
 
+import { initalState } from "store/dataReducer";
+import { doFilter } from "store/filterDataAction";
+
+import { twMerge } from "utility/Functions";
+import {
+  AbsentType,
+  dateObjType,
+  filterObjType,
+  objFilterHasValue,
+} from "utility/types";
+
+import { StyledForm } from "./CustomForm.style";
 type Props = {};
 
 const CustomForm = ({}: Props) => {
@@ -15,9 +24,9 @@ const CustomForm = ({}: Props) => {
     { title: "member Note", selected: false },
     { title: "admitter Note", selected: false },
   ]);
-  const [valueDate, setValueDate] = useState({
-    startDate: new Date(),
-    endDate: new Date(),
+  const [valueDate, setValueDate] = useState<dateObjType>({
+    startDate: null,
+    endDate: null,
   });
   const [valueFilter, setValueFilter] = useState<filterObjType>({
     Name: "",
@@ -35,17 +44,6 @@ const CustomForm = ({}: Props) => {
     setValueFilter({ ...valueFilter, [key]: value });
   };
 
-  function twMerge(
-    className:
-      | string
-      | number
-      | boolean
-      | import("react-tailwindcss-datepicker/dist/types").ClassNameParam[]
-      | undefined,
-    arg1: string
-  ): string {
-    throw new Error("Function not implemented.");
-  }
   const handleFilter = () => {
     dispatch(
       doFilter({
@@ -57,8 +55,11 @@ const CustomForm = ({}: Props) => {
   };
   const handleResetFilter = () => {
     setValueFilter(initalState.filterObj);
-    dispatch(resetFilter());
+    setValueDate(initalState.dateObj);
+    setHasValueFilter(initalState.noteValues);
+    dispatch(doFilter(initalState));
   };
+
   return (
     <StyledForm>
       <form>
@@ -83,7 +84,6 @@ const CustomForm = ({}: Props) => {
               setTypeEvent={(value: AbsentType) => UpdateValue("Type", value)}
             />
           </div>
-
           <div className=" col-start-3 col-span-2 text-left">
             <RowCheckboxs
               setFiltersValueEvent={(type: objFilterHasValue[]) =>
@@ -92,7 +92,7 @@ const CustomForm = ({}: Props) => {
               valueFilters={hasValueFilter}
             />
           </div>
-          <div className="col-start-1 col-span-2 text-left">
+          <div className="col-start-1 col-span-1 text-left">
             <Datepicker
               containerClassName={() => {
                 return "dark:bg-slate-100 text-red-400";
@@ -116,7 +116,7 @@ const CustomForm = ({}: Props) => {
           <button
             type="button"
             onClick={handleFilter}
-            className="col-start-4  h-10 bg-white  px-3 border border-blue-300 rounded-md shadow-sm text-sm leading-4  text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="col-start-4 bg-sky-900 h-10  px-3 border border-blue-300 rounded-md shadow-sm text-sm leading-4  text-white hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             Filter
           </button>

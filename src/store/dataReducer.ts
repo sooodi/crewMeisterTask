@@ -19,7 +19,6 @@ export const dataReducer = (
   state = initalState,
   action: { type: string; payload: any }
 ) => {
-  console.log("ddf", action);
   switch (action.type) {
     case "SELECTED_FILTER":
       state = JSON.parse(JSON.stringify(action.payload));

@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 
 axios.defaults.baseURL = "/api";
 
@@ -19,7 +19,6 @@ const useMember = () => {
       } catch (error) {
         if (axios.isAxiosError(error)) {
           setError("Axios Error with Message: " + error.message);
-          console.log("err", error.message);
         } else {
           setError(error);
         }

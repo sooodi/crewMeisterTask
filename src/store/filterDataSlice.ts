@@ -1,15 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AbsentType, StateType } from "utility/types";
 
-// const initialTodoState: TodoArrayModel = {
-//   all_todos: [],
-//   particular_todo: {
-//     userId: 0,
-//     id: 0,
-//     title: "",
-//     completed: false,
-//   },
-// };
 export const initalState: StateType = {
   noteValues: [
     { title: "member Note", selected: false },
@@ -31,11 +22,7 @@ const filterDataSlice = createSlice({
   initialState: initalState,
   reducers: {
     setFilter(state, action: PayloadAction<StateType>) {
-      console.log("payLoad", "slice", state);
       return (state = action.payload);
-    },
-    resetFilter(state, action: PayloadAction) {
-      state = initalState;
     },
   },
 });
