@@ -35,13 +35,19 @@ export const getAbsences = async (req, res, next) => {
 
   try {
     let total = await Absence.count();
-    const absences = await Absence.find()
+    let query = {};
+    let _get = req.query;
+    _get.type ? (query.type = _get.type) : "";
+    _get.userId ? (query.userId = _get.userId) : "";
+    _get.startDate ? (query.startDate = { $gte: _get.startDate }) : "";
+    _get.endDate ? (query.endDate = { $lt: _get.endDate }) : "";
+    const absences = await Absence.find(query)
       .limit(limitValue)
       .skip(limitValue * skipValue - limitValue);
 
     res
       .status(200)
-      .json({ status: "success", totlal: total, absences: absences });
+      .json({ status: "success", totlal: absences.length, absences: absences });
   } catch (err) {
     next(err);
   }
