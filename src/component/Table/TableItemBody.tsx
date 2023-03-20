@@ -1,20 +1,19 @@
 import FileSaver from "file-saver";
 import React from "react";
-import { truncate } from "utility/Functions";
+import { CalculateDateArray, getStatus, truncate } from "utility/Functions";
 import { ItemProps } from "utility/types";
 const ics = require("ics");
 
 const TableItemBody = ({ item, index }: ItemProps) => {
   const handleEvent = () => {
-    console.log("handleEvent", item.startDate, item.startDate.split("-"));
     const event = {
-      start: `${item.startDate.split("-")}`,
+      start: CalculateDateArray(item.startDate),
       duration: { days: item.duration },
       title: ` Absence Event : user ${item.name}`,
       description: `startDate:${item.startDate} endDate:${item.endDate}  type of Absence:${item.type} admitterNote: ${item.admitterNote} memberNote: ${item.memberNote} `,
       url: "http://www.crewmeister.com/",
-      status: item.status,
-      organizer: item.name,
+      status: getStatus(item.status),
+      organizer: { name: item.name },
       attendees: [
         {
           name: "User B",
@@ -30,15 +29,11 @@ const TableItemBody = ({ item, index }: ItemProps) => {
         },
       ],
     };
-    console.log("handvent", event);
+
     ics.createEvent(event, (error: any, value: any) => {
       if (error) {
-        console.log("error", error);
         return;
       }
-
-      console.log("value", value);
-
       var file = new File([value], `${__dirname}/event.ics`);
 
       FileSaver.saveAs(file);

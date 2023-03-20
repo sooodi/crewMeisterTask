@@ -1,4 +1,10 @@
-import { absenseListType, AbsentType, memberType, StateType } from "./types";
+import {
+  absenseListType,
+  AbsentType,
+  memberType,
+  StateType,
+  statusAbsense,
+} from "./types";
 
 export const AbsentDuration = (obj: any) => {
   var start = new Date(obj?.startDate).getTime();
@@ -108,7 +114,16 @@ export function twMerge(
 ): string {
   throw new Error("Function not implemented.");
 }
-
+export const CalculateDateArray = (dateValue: string) => {
+  let val = "2021-02-04";
+  let dateArray = val.split("-");
+  return dateArray.map((e) => parseInt(e));
+};
 export function classNames(...classes: (string | boolean)[]) {
   return classes.filter(Boolean).join(" ");
+}
+export function getStatus(status: string) {
+  if (status === "Rejected") return "CANCELLED";
+  else if (status === "Requested") return "ENTATIVE";
+  else return "CONFIRMED";
 }
