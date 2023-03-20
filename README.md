@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+This project was bootstrapped with create-react-app.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+front_url:http://localhost:3000
+Apis:http://localhost:3000
 
-## Available Scripts
+Path of apis --> "apicrewmeister" : for run this one please type:
+cd apicrewmeister then run "npm run start"
 
-In the project directory, you can run:
+Path of Front --> main root "taskcrewmeister" then run "npm run start"
 
-### `npm start`
+I have created two branchs ,one of them without api but another one with api.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+On "main" branch : I used members.json & absenses.json file .
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+On "front_api" branch :I created Apis with mongodb & node js "path:apicrewmeister", we have for apis for members & absences and fill them with same as sample data from json file ,except createAt & id to tables:
 
-### `npm test`
+Backend Api:
+\*\*\* paginagtion is included
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+--> get : localhost:8000/api/members
 
-### `npm run build`
+--> post :localhost:8000/api/members , ex: body:{
+"crewId": 352,
+"id": 9364,
+"image": "https://loremflickr.com/300/400",
+"name": "Marlene",
+"userId": 4
+}
+--> get : localhost:8000/api/absences?limit=5&page=2&userId=2664&type=vacation&startDate=2021-06-30&endDate=2021-07-30
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+--> post :localhost:8000/api/absences ,id was autocreated by mongodb ex: body:{
+{ "admitterId": null,
+"admitterNote": "",
+"confirmedAt": null,
+"createdAt": "2021-06-30T02:13:56.000+02:00",
+"crewId": 352,
+"endDate": "2021-08-12",
+"memberNote": "Pfadfindersommerlager",
+"rejectedAt": null,
+"startDate": "2021-08-05",
+"type": "vacation",
+"userId": 2735
+}
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+}
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+front App:
+front App has features below:
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+\_Mostly Tailwindcss ,some Styled component
+\_typescript
+\_redux & redux toolkit
+\_axios for fetch data
+\_two hook ,for fetch datas
+\_filter with the query :Type & Name of user & date between startDate & endDate.
+\_clean code & seprated every components
+\_create ics file for every row
