@@ -54,6 +54,7 @@ context & usereducer(only on main branch which read json files )
 \_axios for fetch data
 \_two hooks,for fetching data
 \_filter with the query :Type & Name of user & date between startDate & endDate.
+\*\*filter data when has admitterNote or memberNote by memberNote=true&admitterNote=true
 \_clean code & separated every components
 \_create ics file for every row
 Loading & error page
