@@ -39,6 +39,7 @@ const TableItemBody = ({ item, index }: ItemProps) => {
       FileSaver.saveAs(file);
     });
   };
+
   return (
     <tr key={index}>
       <th className="px-4 py-4 text-sm text-left font-medium text-gray-800 whitespace-nowrap">

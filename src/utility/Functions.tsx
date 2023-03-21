@@ -100,6 +100,11 @@ export const HandleFilterObject = (
 
     urlQuery += `&userId=${userId}`;
   }
+  if (stateFilter.noteValues[0].selected === true)
+    urlQuery += `&memberNote=true`;
+  if (stateFilter.noteValues[1].selected === true)
+    urlQuery += `&admitterNote=true`;
+
   return urlQuery;
 };
 

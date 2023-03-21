@@ -40,6 +40,8 @@ export const getAbsences = async (req, res, next) => {
     _get.type ? (query.type = _get.type) : "";
     _get.startDate ? (query.startDate = { $gte: _get.startDate }) : "";
     _get.endDate ? (query.endDate = { $lt: _get.endDate }) : "";
+    _get.admitterNote === "true" ? (query.admitterNote = { $ne: "" }) : "";
+    _get.memberNote === "true" ? (query.memberNote = { $ne: "" }) : "";
     let total = await Absence.count(query).exec();
     const absences = await Absence.find(query)
       .limit(limitValue)

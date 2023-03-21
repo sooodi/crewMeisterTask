@@ -55,10 +55,12 @@ const TableCustom = ({}: Props) => {
 
   useEffect(() => {
     setCurrentPage(1);
+    //stateFilter  has state of name ,type,dates,has admirenote,has membernote
     setQueryFilter(HandleFilterObject(stateFilter, stateMember.memberList));
   }, [stateFilter]);
 
   useEffect(() => {
+    //get member list
     const HandleMemberData = (dataObj: any) => {
       dispatch(setMemberList({ memberList: dataObj?.members }));
     };
@@ -66,6 +68,7 @@ const TableCustom = ({}: Props) => {
   }, [fetchMemberDatas]);
 
   useEffect(() => {
+    //get absence list page by page
     const HandleData = (dataObj: any) => HandleListData(dataObj);
 
     if (stateMember) {
